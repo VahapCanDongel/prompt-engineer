@@ -13,6 +13,12 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
     },
+
+    fontFamily: {
+      inter: ["Inter", "sans-serif"],
+      source: ["Source Sans Pro", "sans-serif"],
+      right: ["Righteous", "cursive"],
+    },
   },
   plugins: [require("daisyui")],
 };
