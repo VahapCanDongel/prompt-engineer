@@ -5,12 +5,12 @@
 
 @layer utilities{
 
-  .trans-smooth {
+  .transition-smooth {
       transition-duration: 0.2s;
       transition-timing-function: ease-in-out;
     }
     
-    .trans-smooth:hover {
+    .transition-smooth:hover {
       transition-duration: 0.2s;
       transition-timing-function: ease-in-out;
     }

@@ -1,9 +1,12 @@
 import { useUser } from "@supabase/auth-helpers-react";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function Navigation() {
   const [addPromptVisibility, setAddPromptVisibility] = useState(true);
   const user = useUser();
+  const router = useRouter();
+
   const handleModalVisibility = () => {
     setAddPromptVisibility(!addPromptVisibility);
   };
@@ -11,7 +14,10 @@ export default function Navigation() {
   return (
     <div className="w-full sticky z-50 inset-1 bg-white">
       <div className="flex justify-center items-center gap-[200px] ">
-        <div className="text-transparent bg-clip-text text-[40px] font-bold font-right bg-gradient-to-r from-indigo-300 to-purple-400">
+        <div
+          className="text-transparent bg-clip-text text-[40px] font-bold font-right bg-gradient-to-r from-indigo-300 to-purple-400 select-none hover:cursor-pointer"
+          onClick={() => router.push("/")}
+        >
           CGPrompT
         </div>
         <ul className="flex justify-center items-center gap-3">
@@ -25,7 +31,12 @@ export default function Navigation() {
 
           <div className="dropdown dropdown-bottom  dropdown-right">
             {!user ? (
-              <div class>Login</div>
+              <div
+                className="hover:cursor-pointer hover:text-gray-500 transition-smooth"
+                onClick={() => router.push("/login")}
+              >
+                Login
+              </div>
             ) : (
               <div
                 tabIndex={0}

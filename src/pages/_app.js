@@ -12,10 +12,6 @@ export default function App({ Component, pageProps }) {
     <div className="bg-white w-full min-h-screen flex flex-col items-center antialiased font-source">
       <Navigation />
 
-      <div className="flex w-[800px] gap-2">
-        <SideMenu />
-      </div>
-
       <SessionContextProvider
         supabaseClient={supabase}
         initialSession={pageProps.initialSession}
