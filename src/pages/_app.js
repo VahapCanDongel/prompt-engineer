@@ -10,16 +10,14 @@ export default function App({ Component, pageProps }) {
 
   return (
     <SessionContextProvider
-    supabaseClient={supabase}
-    initialSession={pageProps.initialSession}
+      supabaseClient={supabase}
+      initialSession={pageProps.initialSession}
     >
       <div className="bg-white w-full min-h-screen flex flex-col items-center antialiased font-source">
         <Navigation />
 
-          <Component {...pageProps} />
-      
+        <Component {...pageProps} />
       </div>
-
     </SessionContextProvider>
   );
 }

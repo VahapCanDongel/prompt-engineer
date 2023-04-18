@@ -19,7 +19,6 @@ export default function Navigation() {
           onClick={() => router.push("/")}
         >
           CGPrompT
-    
         </div>
         <ul className="flex justify-center items-center gap-3">
           <li>
@@ -39,10 +38,11 @@ export default function Navigation() {
                 Login
               </div>
             ) : (
-              <div
+              <img
+                src={user.user_metadata.picture}
                 tabIndex={0}
                 className="rounded-full border-[1px] border-gray-400 w-12 h-12 p-2"
-              ></div>
+              />
             )}
 
             <ul
