@@ -19,6 +19,7 @@ export default function Navigation() {
           onClick={() => router.push("/")}
         >
           CGPrompT
+    
         </div>
         <ul className="flex justify-center items-center gap-3">
           <li>
