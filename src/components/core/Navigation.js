@@ -41,7 +41,7 @@ export default function Navigation() {
               <img
                 src={user.user_metadata.picture}
                 tabIndex={0}
-                className="rounded-full border-[1px] border-gray-400 w-12 h-12 p-2"
+                className="rounded-full border-[1px] border-gray-400 w-12 h-12 p-2 hover:cursor-pointer"
               />
             )}
 

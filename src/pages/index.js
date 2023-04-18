@@ -7,9 +7,7 @@ export default function Home() {
         <div className="flex w-[800px] gap-2 justify-end">
           <SideMenu />
         </div>
-        <div className="text-gray-900 text-lg font-semibold my-4">
-          Education Prompts
-        </div>
+        <div className="text-gray-900 text-lg font-semibold my-4">Prompts</div>
         <PromptCard />
         <PromptCard />
         <PromptCard />

@@ -1,4 +1,10 @@
-export default function PromptCard() {
+export default function PromptCard({
+  user,
+  user_icon,
+  description,
+  post_likes,
+  post_date,
+}) {
   return (
     <div className="w-[500px] min-h-[80px] p-4 rounded-md bg-gray-100 my-1 flex-shrink-0">
       <div className="flex gap-2">
