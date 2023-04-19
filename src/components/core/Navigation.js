@@ -1,6 +1,7 @@
 import { useUser } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import PromptEditor from "../prompt/PromptEditor";
 
 export default function Navigation() {
   const [addPromptVisibility, setAddPromptVisibility] = useState(true);
@@ -75,9 +76,18 @@ export default function Navigation() {
       </div>
 
       {!addPromptVisibility && (
-        <div className=" z-50 inset-1 flex absolute justify-center my-[12%] ">
-          <div className="bg-white  w-[600px] h-[500px] rounded-md shadow-md border-[1px] border-gray-300">
-            hello
+        <div className=" z-50 inset-1 flex absolute justify-center my-[2%] ">
+          <div className="bg-white  w-[1000px] h-[850px] rounded-md shadow-md border-[1px] border-gray-300 flex flex-col gap-2">
+            <select className="w-[250px] bg-none p-2 rounded-md border-gray-400 border-[1px] focus:outline-none">
+                <option className="g-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 focus:bg-gray-300 focus:text-gray-900">Marketing</option>
+                <option>Education</option>
+                <option>Mentoring</option>
+            </select>
+           <input type="text" placeholder="Title" className="bg-none rounded-md p-2 w-[250px] border-gray-400 border-[1px] focus:outline-none focus:border-gray-500 transition-smooth "/>
+           <textarea placeholder="Description" className="bg-none rounded-md p-2 w-[250px] border-gray-400 border-[1px] focus:outline-none focus:border-gray-500 transition-smooth  h-[150px] resize-none"></textarea>
+            <PromptEditor/>
+
+        
           </div>
         </div>
       )}

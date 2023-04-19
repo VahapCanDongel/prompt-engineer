@@ -24,6 +24,12 @@
   .no-vertical-scrollbar::-webkit-scrollbar {
     width: 0;
   }
+  
+  .custom-select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
 
 
 }
