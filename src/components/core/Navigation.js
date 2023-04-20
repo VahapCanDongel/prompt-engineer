@@ -7,6 +7,12 @@ import getCategories from "../../../utils/category/getCategories";
 export default function Navigation() {
   const [addPromptVisibility, setAddPromptVisibility] = useState(true);
   const [categories, setCategories] = useState([])
+
+  const [selectedCategories, setSelecetedCategories] = useState('')
+  const [categopryTitle, setCategoryTitle] = useState('')
+  const [categoryDescription, setCategoryDescription] = useState('')
+  const [promptContent, setPromptContent]= useState('')
+
   const user = useUser();
   const router = useRouter();
 

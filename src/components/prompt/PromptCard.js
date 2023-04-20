@@ -1,6 +1,7 @@
 export default function PromptCard({
   user,
   user_icon,
+  title,
   description,
   post_likes,
   post_date,
@@ -11,12 +12,16 @@ export default function PromptCard({
         <div className="w-12 h-12 rounded-full bg-indigo-400"></div>
         <div className="font-semibold text-gray-500">Alqorith</div>
       </div>
+      <div  className="ml-14 mb-6 mt-[-17px]">
+        <div className="font-semibold text-gray-500">Title</div>
+        <div className="text-gray-500">
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur
+          consectetur eligendi quaerat blanditiis quas voluptate delectus aliquid
+          expedita rerum ea?
+        </div>
 
-      <div className="ml-14 mb-6 mt-[-17px] text-gray-500">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur
-        consectetur eligendi quaerat blanditiis quas voluptate delectus aliquid
-        expedita rerum ea?
       </div>
+    
 
       <div className="flex w-full justify-between items-center">
         <div className="text-gray-500 flex gap-1 text-[14px]">
