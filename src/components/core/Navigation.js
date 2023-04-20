@@ -134,6 +134,7 @@ export default function Navigation() {
                 className="w-[350px] bg-none p-2 rounded-sm border-gray-400 border-[1px] focus:outline-none mr-24 bg-white"
                 onChange={(e) => setSelecetedCategories(e.target.value)}
               >
+                <option>Please select</option>
                 {Array.isArray(categories) &&
                   categories.map((data, index) => (
                     <option
