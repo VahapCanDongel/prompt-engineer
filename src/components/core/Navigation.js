@@ -1,7 +1,6 @@
 import { useUser } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import PromptEditor from "../prompt/PromptEditor";
 
 
 export default function Navigation() {
@@ -78,16 +77,26 @@ export default function Navigation() {
 
       {!addPromptVisibility && (
         <div className=" z-50 inset-1 flex absolute justify-center my-[2%] ">
-          <div className="bg-white  w-[750px] h-[750px] rounded-md shadow-md border-[1px] border-gray-300 flex flex-col gap-2">
-            <select className="w-[250px] bg-none p-2 rounded-md border-gray-400 border-[1px] focus:outline-none">
+          <div className="bg-white  w-[750px] h-[750px] rounded-md shadow-md border-[1px] border-gray-300 flex flex-col gap-2 p-6">
+            <div className="flex justify-between">
+              <div className="text-[20px] font-semibold">Add Prompt</div>
+              <div className="hover:text-gray-300 transition-smooth hover:cursor-pointer" onClick={handleModalVisibility}>Close</div>
+            </div>
+            <div>You cann add prompt to desired category, please give brief, clear description for the purpose of the prompt.</div>
+          
+            <div className="flex flex-col gap-4 justify-center items-center h-[600px]">
+            <select className="w-[350px] bg-none p-2 rounded-sm border-gray-400 border-[1px] focus:outline-none mr-24">
                 <option className="g-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 focus:bg-gray-300 focus:text-gray-900">Marketing</option>
                 <option>Education</option>
                 <option>Mentoring</option>
             </select>
-           <input type="text" placeholder="Title" className="bg-none rounded-md p-2 w-[250px] border-gray-400 border-[1px] focus:outline-none focus:border-gray-500 transition-smooth "/>
-           <textarea placeholder="Description" className="bg-none rounded-md p-2 w-[250px] border-gray-400 border-[1px] focus:outline-none focus:border-gray-500 transition-smooth  h-[150px] resize-none"></textarea>
-          
-            <PromptEditor/>
+           <input type="text" placeholder="Title" className="bg-none rounded-sm p-2 w-[450px] border-gray-400 border-[1px] focus:outline-none focus:border-gray-500 transition-smooth "/>
+           <textarea placeholder="Short Description" className="bg-none rounded-sm p-2 w-[450px] border-gray-400 border-[1px] focus:outline-none focus:border-gray-500 transition-smooth  h-[80px] resize-none"></textarea>
+           <textarea placeholder="Prompt Content" className="bg-none rounded-sm p-2 w-[450px] border-gray-400 border-[1px] focus:outline-none focus:border-gray-500 transition-smooth  h-[250px]"></textarea>
+            
+            <div className="bg-indigo-400 p-2 w-[100px] flex items-center justify-center text-white rounded-sm hover:bg-indigo-500 transition-smooth hover:cursor-pointer">Add</div>
+            </div>
+           
         
           </div>
         </div>
