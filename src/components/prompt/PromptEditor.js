@@ -1,18 +1,10 @@
-import { useState } from "react";
-import ReactQuill from "react-quill"
+import { useState } from 'react';
+import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'
 
 export default function PromptEditor(){
-    const [convertedText, setConvertedText] = useState("Some default content");
+    const [value, setValue] = useState('');
     
-    return(
-        <div>
-             <ReactQuill
-        theme='snow'
-        value={convertedText}
-        onChange={setConvertedText}
-        style={{minHeight: '300px'}}
-      />
-        </div>
-    )
+    return <ReactQuill theme="snow" value={value} onChange={setValue} />;
+  
 }
