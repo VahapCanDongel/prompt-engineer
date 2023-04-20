@@ -1,33 +1,52 @@
-import { useUser } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import getCategories from "../../../utils/category/getCategories";
-
+import addPrompt from "../../../utils/prompt/addPrompt";
+import { useUser } from "@supabase/auth-helpers-react";
 
 export default function Navigation() {
   const [addPromptVisibility, setAddPromptVisibility] = useState(true);
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState([]);
 
-  const [selectedCategories, setSelecetedCategories] = useState('')
-  const [categopryTitle, setCategoryTitle] = useState('')
-  const [categoryDescription, setCategoryDescription] = useState('')
-  const [promptContent, setPromptContent]= useState('')
+  const [category_id, setSelecetedCategories] = useState("");
+  const [title, setCategoryTitle] = useState("");
+  const [description, setCategoryDescription] = useState("");
+  const [content, setPromptContent] = useState("");
 
   const user = useUser();
+
   const router = useRouter();
 
   const handleModalVisibility = () => {
     setAddPromptVisibility(!addPromptVisibility);
   };
 
+  const addPromptHandler = async () => {
+    const user_id = user.id;
+    const user_name = user.user_metadata.full_name;
+    const user_picture = user.user_metadata.picture;
+
+    await addPrompt({
+      category_id,
+      user_id,
+      user_name,
+      user_picture,
+      title,
+      description,
+      content,
+    });
+  };
+
   useEffect(() => {
     const fetchCategories = async () => {
-      const categories = await getCategories()
-      setCategories(categories)
-    } 
-    fetchCategories()
-  }, [])
+      const categories = await getCategories();
+      setCategories(categories);
+    };
+    fetchCategories();
+  }, []);
 
+  if (user) {
+  }
   return (
     <div className="w-full sticky z-50 inset-1 bg-white">
       <div className="flex justify-center items-center gap-[200px] ">
@@ -46,7 +65,7 @@ export default function Navigation() {
             />
           </li> */}
 
-          <div className="dropdown dropdown-bottom  dropdown-right">
+          <div className="dropdown dropdown-bottom  dropdown-right ">
             {!user ? (
               <div
                 className="hover:cursor-pointer hover:text-gray-500 transition-smooth"
@@ -64,7 +83,7 @@ export default function Navigation() {
 
             <ul
               tabIndex={0}
-              className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+              className="dropdown-content menu p-2 shadow rounded-box w-52 bg-white"
             >
               <li onClick={handleModalVisibility}>
                 <a>
@@ -95,32 +114,61 @@ export default function Navigation() {
         <div className=" z-50 inset-1 flex absolute justify-center my-[2%] ">
           <div className="bg-white  w-[750px] h-[750px] rounded-md shadow-md border-[1px] border-gray-300 flex flex-col gap-2 p-6">
             <div className="flex justify-between">
-              <div className="text-[20px] font-semibold">Add Prompt</div>
-              <div className="hover:text-gray-300 transition-smooth hover:cursor-pointer" onClick={handleModalVisibility}>Close</div>
+              <div className="text-[20px] font-semibold text-gray-500">
+                Add Prompt
+              </div>
+              <div
+                className="hover:text-gray-300 transition-smooth hover:cursor-pointer"
+                onClick={handleModalVisibility}
+              >
+                Close
+              </div>
             </div>
-            <div>You cann add prompt to desired category, please give brief, clear description for the purpose of the prompt.</div>
-          
+            <div>
+              You can add prompt to desired category, please give brief, clear
+              description for the purpose of the prompt.
+            </div>
+
             <div className="flex flex-col gap-4 justify-center items-center h-[600px]">
-
-
-            <select className="w-[350px] bg-none p-2 rounded-sm border-gray-400 border-[1px] focus:outline-none mr-24">
-              {
-                Array.isArray(categories) && 
+              <select
+                className="w-[350px] bg-none p-2 rounded-sm border-gray-400 border-[1px] focus:outline-none mr-24 bg-white"
+                onChange={(e) => setSelecetedCategories(e.target.value)}
+              >
+                {Array.isArray(categories) &&
                   categories.map((data, index) => (
-                    <option key={index} className="g-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 focus:bg-gray-300 focus:text-gray-900">{data.name}</option>
+                    <option
+                      key={index}
+                      value={data.id}
+                      className="g-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 focus:bg-gray-300 focus:text-gray-900"
+                    >
+                      {data.name}
+                    </option>
+                  ))}
+              </select>
+              <input
+                type="text"
+                placeholder="Title"
+                className=" rounded-sm p-2 w-[450px] border-gray-400 border-[1px] focus:outline-none focus:border-gray-500 transition-smooth bg-white"
+                onChange={(e) => setCategoryTitle(e.target.value)}
+              />
+              <textarea
+                placeholder="Short Description"
+                className="bg-white rounded-sm p-2 w-[450px] border-gray-400 border-[1px] focus:outline-none focus:border-gray-500 transition-smooth  h-[80px] resize-none"
+                onChange={(e) => setCategoryDescription(e.target.value)}
+              ></textarea>
+              <textarea
+                placeholder="Prompt Content"
+                className="bg-white rounded-sm p-2 w-[450px] border-gray-400 border-[1px] focus:outline-none focus:border-gray-500 transition-smooth  h-[250px]"
+                onChange={(e) => setPromptContent(e.target.value)}
+              ></textarea>
 
-                  ))
-                
-              }
-            </select>
-           <input type="text" placeholder="Title" className="bg-none rounded-sm p-2 w-[450px] border-gray-400 border-[1px] focus:outline-none focus:border-gray-500 transition-smooth "/>
-           <textarea placeholder="Short Description" className="bg-none rounded-sm p-2 w-[450px] border-gray-400 border-[1px] focus:outline-none focus:border-gray-500 transition-smooth  h-[80px] resize-none"></textarea>
-           <textarea placeholder="Prompt Content" className="bg-none rounded-sm p-2 w-[450px] border-gray-400 border-[1px] focus:outline-none focus:border-gray-500 transition-smooth  h-[250px]"></textarea>
-            
-            <div className="bg-indigo-400 p-2 w-[100px] flex items-center justify-center text-white rounded-sm hover:bg-indigo-500 transition-smooth hover:cursor-pointer">Add</div>
+              <div
+                onClick={addPromptHandler}
+                className="bg-indigo-400 p-2 w-[100px] flex items-center justify-center text-white rounded-sm hover:bg-indigo-500 transition-smooth hover:cursor-pointer"
+              >
+                Add
+              </div>
             </div>
-           
-        
           </div>
         </div>
       )}
