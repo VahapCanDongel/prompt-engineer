@@ -1,16 +1,26 @@
 import { useUser } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import getCategories from "../../../utils/category/getCategories";
 
 
 export default function Navigation() {
   const [addPromptVisibility, setAddPromptVisibility] = useState(true);
+  const [categories, setCategories] = useState([])
   const user = useUser();
   const router = useRouter();
 
   const handleModalVisibility = () => {
     setAddPromptVisibility(!addPromptVisibility);
   };
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const categories = await getCategories()
+      setCategories(categories)
+    } 
+    fetchCategories()
+  }, [])
 
   return (
     <div className="w-full sticky z-50 inset-1 bg-white">
@@ -22,13 +32,13 @@ export default function Navigation() {
           CGPrompT
         </div>
         <ul className="flex justify-center items-center gap-3">
-          <li>
+          {/* <li>
             <input
               type="text"
               placeholder="Search"
-              className="input w-full max-w-xs font-inter bg-white border-[1px] border-gray-400"
+              className="input w-full max-w-xs font-inter bg-white border-[1px] border-gray-400 rounded-sm"
             />
-          </li>
+          </li> */}
 
           <div className="dropdown dropdown-bottom  dropdown-right">
             {!user ? (
@@ -85,10 +95,17 @@ export default function Navigation() {
             <div>You cann add prompt to desired category, please give brief, clear description for the purpose of the prompt.</div>
           
             <div className="flex flex-col gap-4 justify-center items-center h-[600px]">
+
+
             <select className="w-[350px] bg-none p-2 rounded-sm border-gray-400 border-[1px] focus:outline-none mr-24">
-                <option className="g-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 focus:bg-gray-300 focus:text-gray-900">Marketing</option>
-                <option>Education</option>
-                <option>Mentoring</option>
+              {
+                Array.isArray(categories) && 
+                  categories.map((data, index) => (
+                    <option key={index} className="g-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 focus:bg-gray-300 focus:text-gray-900">{data.name}</option>
+
+                  ))
+                
+              }
             </select>
            <input type="text" placeholder="Title" className="bg-none rounded-sm p-2 w-[450px] border-gray-400 border-[1px] focus:outline-none focus:border-gray-500 transition-smooth "/>
            <textarea placeholder="Short Description" className="bg-none rounded-sm p-2 w-[450px] border-gray-400 border-[1px] focus:outline-none focus:border-gray-500 transition-smooth  h-[80px] resize-none"></textarea>
