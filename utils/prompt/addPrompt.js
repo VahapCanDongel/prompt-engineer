@@ -8,18 +8,6 @@ export default async function addPrompt({
   description,
   content,
 }) {
-  console.log(
-    category_id,
-    user_id,
-    user_name,
-    user_picture,
-    title,
-    description,
-    content
-  );
-
-  console.log(`Category: ${category_id}`);
-
   const { data, error } = await supabase.from("prompts").insert([
     {
       user_id: user_id,
