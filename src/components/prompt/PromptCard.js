@@ -1,3 +1,6 @@
+import { useUser } from "@supabase/auth-helpers-react";
+import { useRouter } from "next/router";
+
 export default function PromptCard({
   user,
   user_icon,
@@ -6,6 +9,19 @@ export default function PromptCard({
   post_likes,
   post_date,
 }) {
+
+  const signedUser = useUser()
+  const router = useRouter()
+  const handlePromptLike = () => {
+    if(!signedUser){
+      router.push('/login')
+    }else{
+      console.log('Perfom liking functionality')
+    }
+  }
+
+
+
   return (
     <div className="w-[500px] min-h-[80px] p-4 rounded-md bg-gray-100 my-1 flex-shrink-0">
       <div className="flex gap-2">
@@ -27,13 +43,13 @@ export default function PromptCard({
 
           <div>16/04/2023</div>
         </div>
-        <div className="flex">
+        <div className="flex" onClick={handlePromptLike}>
           <svg
             width={26}
             height={26}
             viewBox="0 0 24 24"
             className="hover:fill-indigo-400 trans-smooth fill-gray-500"
-          >
+          > 
             <path d="m11.293 5.547.707.708.707-.707a5 5 0 1 1 7.07 7.071l-7.07 7.071a1 1 0 0 1-1.414 0l-7.071-7.07a5 5 0 1 1 7.07-7.072Z" />
           </svg>
 

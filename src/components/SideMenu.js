@@ -19,7 +19,7 @@ export default function SideMenu() {
 
       {Array.isArray(categories) &&
         categories.map((data, index) => (
-          <CategoryCard key={index} name={data.name} />
+          <CategoryCard key={index} name={data.name} id={data.id} />
         ))}
     </div>
   );
