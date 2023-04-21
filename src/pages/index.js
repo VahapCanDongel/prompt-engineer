@@ -26,7 +26,7 @@ export default function Home() {
         <div className="text-gray-900 text-lg font-semibold my-4">Most Liked Prompts</div>
         {
           Array.isArray(prompts) && prompts.map((data, index) => (
-            <PromptCard user={data.user_name} user_icon={data.user_picture} title={data.title} description={data.description} post_likes={data.likes}/>
+            <PromptCard user={data.user_name} user_icon={data.user_picture} title={data.title} content={data.content} post_likes={data.likes}/>
           ))
         }
        

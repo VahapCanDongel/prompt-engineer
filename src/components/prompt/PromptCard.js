@@ -5,7 +5,7 @@ export default function PromptCard({
   user,
   user_icon,
   title,
-  description,
+  content,
   post_likes,
   post_date,
 }) {
@@ -31,7 +31,7 @@ export default function PromptCard({
       <div  className="ml-14 mb-6 mt-[-17px]">
         <div className="font-semibold text-gray-500">{title}</div>
         <div className="text-gray-500">
-          {description}
+          {content}
         </div>
 
       </div>
