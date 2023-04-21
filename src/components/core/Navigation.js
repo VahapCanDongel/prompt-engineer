@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import getCategories from "../../../utils/category/getCategories";
 import addPrompt from "../../../utils/prompt/addPrompt";
-import { useUser } from "@supabase/auth-helpers-react";
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 
 export default function Navigation() {
   const [addPromptVisibility, setAddPromptVisibility] = useState(true);
@@ -16,6 +16,8 @@ export default function Navigation() {
   const user = useUser();
 
   const router = useRouter();
+
+  const supabaseClient = useSupabaseClient()
 
   const handleModalVisibility = () => {
     setAddPromptVisibility(!addPromptVisibility);
@@ -103,7 +105,7 @@ export default function Navigation() {
               </li>
 
               <li>
-                <a>Sign Out</a>
+                <a onClick={supabaseClient.auth.signOut()}>Sign Out</a>
               </li>
             </ul>
           </div>

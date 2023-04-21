@@ -12,28 +12,28 @@ export default function Prompt() {
     const parsedData = JSON.parse(data);
 
     
-
     const currentSignedInUser = useUser()
 
     const prompt_id = id
-    const user_id = currentSignedInUser.id
-    const user_name = currentSignedInUser.user_metadata.full_name
-    const user_picture = currentSignedInUser.user_metadata.picture
+    
     const [user_comment, setUserComment] = useState('')
 
     const [comments, setComments] = useState([])
 
     const handleAddComment = async () => {
-        if(!currentSignedInUser){
+        if (!currentSignedInUser) {
             router.push('/login')
-        }else{
-            await addComment({prompt_id, user_id, user_name, user_picture, user_comment })
+        } else {
+            const user_id = currentSignedInUser.id
+            const user_name = currentSignedInUser.user_metadata.full_name
+            const user_picture = currentSignedInUser.user_metadata.picture
+            await addComment({ prompt_id, user_id, user_name, user_picture, user_comment })
         }
     }
 
     useEffect(() => {
-        const fetchComments = async () =>{
-            const comments = await getComments({prompt_id})
+        const fetchComments = async () => {
+            const comments = await getComments({ prompt_id })
             setComments(comments)
         }
         fetchComments()
@@ -42,7 +42,8 @@ export default function Prompt() {
 
     return (
         <div className="flex flex-col mt-3 items-center">
-            <div className="border-[1px] border-gray-300 p-2 w-[450px] min-h-[200px] rounded-sm">
+           <div className="mr-auto mt-6">Prompt</div>
+            <div className="border-[1px] border-gray-300 p-2 w-[500px] min-h-[200px] rounded-sm">
                 <div className="flex gap-2">
                     <img src={parsedData.user_icon} className="w-12 h-12 rounded-full border-indigo-400 border-[1px] p-1" />
                     <div className="font-semibold text-gray-500 text-[20px]">{parsedData.user}</div>
@@ -77,26 +78,20 @@ export default function Prompt() {
 
 
 
-            <div className="my-2">
+            <div className="my-6">
                 <div className="text-gray-500 text-[16px]">Give feedback!</div>
-                <textarea placeholder="Comment..." className="text-gray-500 border-[1px]  border-gray-300 p-2 w-[450px] resize-none focus:outline-none h-[130px]" onChange={(e) => setUserComment(e.target.value)}></textarea>
+                <textarea placeholder="Comment..." className="text-gray-500 border-[1px]  border-gray-300 p-2 w-[500px] resize-none focus:outline-none h-[130px]" onChange={(e) => setUserComment(e.target.value)}></textarea>
                 <div className="p-2 w-[60px] bg-indigo-300 flex justify-center items-center rounded-sm text-white ml-auto select-none hover:bg-indigo-400 hover:cursor-pointer transition-smooth" onClick={handleAddComment}>Add</div>
             </div>
             <div className="mr-auto mt-6">Comments</div>
-            <div className="overflow-auto h-[500px] mb-3">
+            <div className="overflow-auto  mb-3 w-[500px] flex items-center flex-col overflow-x-hidden">
                 {
-                Array.isArray(comments) && 
+                    Array.isArray(comments) &&
                     comments.map((data, index) => (
-                        <CommentCard  user_name={data.user_name} user_comment={data.user_comment} user_picture={data.user_picture} id={data.id} user_id={data.user_id}/>
+                        <CommentCard user_name={data.user_name} user_comment={data.user_comment} user_picture={data.user_picture} id={data.id} user_id={data.user_id} />
                     ))
                 }
-
             </div>
-
-
-
-
-
         </div>
     )
 }
