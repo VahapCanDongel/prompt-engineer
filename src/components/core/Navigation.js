@@ -103,9 +103,8 @@ export default function Navigation() {
               <li>
                 <a>My Prompts</a>
               </li>
-
-              <li>
-                <a onClick={supabaseClient.auth.signOut()}>Sign Out</a>
+              <li onClick={()=> supabaseClient.auth.signOut()}>
+                <a >Sign Out</a>
               </li>
             </ul>
           </div>
