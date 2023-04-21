@@ -12,7 +12,7 @@ export default function Home() {
       setPrompts(prompts)
     }
     fetchPrompts()
-  })
+  },[prompts])
  
 
 
