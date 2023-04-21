@@ -1,6 +1,6 @@
 export default function CommentCard(){
     return (
-        <div className="w-[500px] min-h-[80px] border-[1px] border-gray-300 rounded-sm p-2 my-2">
+        <div className="w-[500px] min-h-[80px] border-[1px] border-gray-300 rounded-sm p-2 my-4">
             <div className="flex gap-2 font-semibold">
                 <img src="" className="w-12 h-12 rounded-full border-indigo-400 border-[1px] p-1"/>
                 <div>User</div>

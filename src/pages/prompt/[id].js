@@ -42,8 +42,20 @@ export default function Prompt() {
             </div>
 
 
+
+            <div className="my-2">
+                <div className="text-gray-500 text-[16px]">Give feedback!</div>
+                <textarea placeholder="Comment..." className="text-gray-500 border-[1px]  border-gray-300 p-2 w-[450px] resize-none focus:outline-none h-[130px]"></textarea>
+                <div className="p-2 w-[60px] bg-indigo-300 flex justify-center items-center rounded-sm text-white ml-auto select-none hover:bg-indigo-400 hover:cursor-pointer transition-smooth">Add</div>
+            </div>
             <div className="mr-auto mt-6">Comments</div>
-            <div className="overflow-auto">
+            <div className="overflow-auto h-[500px] mb-3">
+                <CommentCard />
+                <CommentCard />
+                <CommentCard />
+                <CommentCard />
+                <CommentCard />
+                <CommentCard />
                 <CommentCard />
             </div>
 
