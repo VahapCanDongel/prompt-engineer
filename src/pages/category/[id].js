@@ -16,7 +16,7 @@ export default function Category(){
           setPromts(prompts)
         }
         fetchPrompts()
-    })
+    },[prompts])
 
 
 
