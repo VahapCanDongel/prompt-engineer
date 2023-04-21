@@ -1,11 +1,45 @@
 import CommentCard from "@/components/comment/CommentCard";
+import { useUser } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router"
+import addComment from "../../../utils/comment/addComment";
+import { useEffect, useState } from "react";
+import getComments from "../../../utils/comment/getComments";
 
 export default function Prompt() {
     const router = useRouter()
     const { id } = router.query
     const { data } = router.query
     const parsedData = JSON.parse(data);
+
+    
+
+    const currentSignedInUser = useUser()
+
+    const prompt_id = id
+    const user_id = currentSignedInUser.id
+    const user_name = currentSignedInUser.user_metadata.full_name
+    const user_picture = currentSignedInUser.user_metadata.picture
+    const [user_comment, setUserComment] = useState('')
+
+    const [comments, setComments] = useState([])
+
+    const handleAddComment = async () => {
+        if(!currentSignedInUser){
+            router.push('/login')
+        }else{
+            await addComment({prompt_id, user_id, user_name, user_picture, user_comment })
+        }
+    }
+
+    useEffect(() => {
+        const fetchComments = async () =>{
+            const comments = await getComments({prompt_id})
+            setComments(comments)
+        }
+        fetchComments()
+    })
+
+
     return (
         <div className="flex flex-col mt-3 items-center">
             <div className="border-[1px] border-gray-300 p-2 w-[450px] min-h-[200px] rounded-sm">
@@ -45,18 +79,18 @@ export default function Prompt() {
 
             <div className="my-2">
                 <div className="text-gray-500 text-[16px]">Give feedback!</div>
-                <textarea placeholder="Comment..." className="text-gray-500 border-[1px]  border-gray-300 p-2 w-[450px] resize-none focus:outline-none h-[130px]"></textarea>
-                <div className="p-2 w-[60px] bg-indigo-300 flex justify-center items-center rounded-sm text-white ml-auto select-none hover:bg-indigo-400 hover:cursor-pointer transition-smooth">Add</div>
+                <textarea placeholder="Comment..." className="text-gray-500 border-[1px]  border-gray-300 p-2 w-[450px] resize-none focus:outline-none h-[130px]" onChange={(e) => setUserComment(e.target.value)}></textarea>
+                <div className="p-2 w-[60px] bg-indigo-300 flex justify-center items-center rounded-sm text-white ml-auto select-none hover:bg-indigo-400 hover:cursor-pointer transition-smooth" onClick={handleAddComment}>Add</div>
             </div>
             <div className="mr-auto mt-6">Comments</div>
             <div className="overflow-auto h-[500px] mb-3">
-                <CommentCard />
-                <CommentCard />
-                <CommentCard />
-                <CommentCard />
-                <CommentCard />
-                <CommentCard />
-                <CommentCard />
+                {
+                Array.isArray(comments) && 
+                    comments.map((data, index) => (
+                        <CommentCard  user_name={data.user_name} user_comment={data.user_comment} user_picture={data.user_picture} id={data.id} user_id={data.user_id}/>
+                    ))
+                }
+
             </div>
 
 
