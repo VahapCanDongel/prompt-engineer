@@ -9,15 +9,13 @@ export default function PromptCard({
   return (
     <div className="w-[500px] min-h-[80px] p-4 rounded-md bg-gray-100 my-1 flex-shrink-0">
       <div className="flex gap-2">
-        <div className="w-12 h-12 rounded-full bg-indigo-400"></div>
-        <div className="font-semibold text-gray-500">Alqorith</div>
+        <img src={user_icon} className="w-12 h-12 rounded-full border-indigo-400 border-[1px] p-1" />
+        <div className="font-semibold text-gray-500">{user}</div>
       </div>
       <div  className="ml-14 mb-6 mt-[-17px]">
-        <div className="font-semibold text-gray-500">Title</div>
+        <div className="font-semibold text-gray-500">{title}</div>
         <div className="text-gray-500">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur
-          consectetur eligendi quaerat blanditiis quas voluptate delectus aliquid
-          expedita rerum ea?
+          {description}
         </div>
 
       </div>
@@ -39,7 +37,7 @@ export default function PromptCard({
             <path d="m11.293 5.547.707.708.707-.707a5 5 0 1 1 7.07 7.071l-7.07 7.071a1 1 0 0 1-1.414 0l-7.071-7.07a5 5 0 1 1 7.07-7.072Z" />
           </svg>
 
-          <div className="text-gray-500">20</div>
+          <div className="text-gray-500">{post_likes}</div>
         </div>
       </div>
     </div>
