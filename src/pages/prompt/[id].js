@@ -9,16 +9,36 @@ export default function Prompt() {
     const router = useRouter()
     const { id } = router.query
     const { data } = router.query
-    const parsedData = JSON.parse(data);
 
-    
+    let parsedData = {};
+
+    try {
+        parsedData = JSON.parse(data);
+    } catch (e) {
+        console.error('Error parsing JSON:', e);
+    }
+
     const currentSignedInUser = useUser()
 
     const prompt_id = id
-    
+
     const [user_comment, setUserComment] = useState('')
 
     const [comments, setComments] = useState([])
+
+    useEffect(() => {
+        const fetchComments = async () => {
+            if (!prompt_id) {
+                return;
+            }
+            const comments = await getComments({ prompt_id });
+            setComments(comments);
+
+        }
+        fetchComments()
+    }, [prompt_id, comments])
+
+
 
     const handleAddComment = async () => {
         if (!currentSignedInUser) {
@@ -27,22 +47,17 @@ export default function Prompt() {
             const user_id = currentSignedInUser.id
             const user_name = currentSignedInUser.user_metadata.full_name
             const user_picture = currentSignedInUser.user_metadata.picture
-            await addComment({ prompt_id, user_id, user_name, user_picture, user_comment })
+            const newComment = await addComment({ prompt_id, user_id, user_name, user_picture, user_comment })
+            setComments([...comments, newComment]
+            );
         }
     }
 
-    useEffect(() => {
-        const fetchComments = async () => {
-            const comments = await getComments({ prompt_id })
-            setComments(comments)
-        }
-        fetchComments()
-    })
 
 
     return (
         <div className="flex flex-col mt-3 items-center">
-           <div className="mr-auto mt-6">Prompt</div>
+            <div className="mr-auto mt-6">Prompt</div>
             <div className="border-[1px] border-gray-300 p-2 w-[500px] min-h-[200px] rounded-sm">
                 <div className="flex gap-2">
                     <img src={parsedData.user_icon} className="w-12 h-12 rounded-full border-indigo-400 border-[1px] p-1" />
@@ -85,12 +100,22 @@ export default function Prompt() {
             </div>
             <div className="mr-auto mt-6">Comments</div>
             <div className="overflow-auto  mb-3 w-[500px] flex items-center flex-col overflow-x-hidden">
-                {
-                    Array.isArray(comments) &&
+                {Array.isArray(comments) && comments.length > 0 ? (
                     comments.map((data, index) => (
-                        <CommentCard user_name={data.user_name} user_comment={data.user_comment} user_picture={data.user_picture} id={data.id} user_id={data.user_id} />
+                        data && <CommentCard
+                            user_name={data.user_name}
+                            user_comment={data.user_comment}
+                            user_picture={data.user_picture}
+                            id={data.id}
+                            user_id={data.user_id}
+                            key={index}
+                        />
                     ))
-                }
+                ) : (
+                    <div>No comments yet.</div>
+                )}
+
+
             </div>
         </div>
     )
