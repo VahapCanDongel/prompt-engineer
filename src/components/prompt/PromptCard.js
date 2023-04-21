@@ -8,6 +8,7 @@ export default function PromptCard({
   content,
   post_likes,
   post_date,
+  id
 }) {
 
   const signedUser = useUser()
@@ -20,10 +21,25 @@ export default function PromptCard({
     }
   }
 
+const data = {
+  user: user,
+  user_icon: user_icon,
+  title: title,
+  content: content,
+  post_likes: post_likes,
+  id: id
+}
 
+
+  const handlePromptRoute= () => {
+    router.push({
+      pathname: `/prompt/${id}`,
+      query: { data: JSON.stringify(data) },
+    });
+  }
 
   return (
-    <div className="w-[500px] min-h-[80px] p-4 rounded-md bg-gray-100 my-1 flex-shrink-0">
+    <div className="w-[500px] min-h-[80px] p-4 rounded-md bg-gray-100 my-1 flex-shrink-0" onClick={handlePromptRoute}>
       <div className="flex gap-2">
         <img src={user_icon} className="w-12 h-12 rounded-full border-indigo-400 border-[1px] p-1" />
         <div className="font-semibold text-gray-500">{user}</div>
