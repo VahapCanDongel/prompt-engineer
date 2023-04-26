@@ -61,6 +61,22 @@ export default function Prompt() {
       <div className="mr-auto mt-6">Prompt</div>
       <PromptCard user={parsedData.user} user_icon={parsedData.user_icon} title={parsedData.title} content={parsedData.content} post_likes={parsedData.post_likes} id={parsedData.id}/>
 
+      <div className="my-6">
+        <div className="text-gray-500 text-[16px]">Give feedback!</div>
+        <textarea
+          placeholder="Comment..."
+          className="bg-white text-gray-500 border-[1px]  border-gray-300 p-2 w-[500px] resize-none focus:outline-none h-[130px]"
+          onChange={(e) => setUserComment(e.target.value)}
+        ></textarea>
+        <div
+          className="p-2 w-[60px] bg-indigo-300 flex justify-center items-center rounded-sm text-white ml-auto select-none hover:bg-indigo-400 hover:cursor-pointer transition-smooth"
+          onClick={handleAddComment}
+        >
+          Add
+        </div>
+      </div>
+
+
       <div className="mr-auto mt-6">Comments</div>
       <div className="overflow-auto  mb-3 w-[500px] flex items-center flex-col overflow-x-hidden">
         {Array.isArray(comments) && comments.length > 0 ? (
