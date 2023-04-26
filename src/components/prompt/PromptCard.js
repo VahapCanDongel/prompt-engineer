@@ -40,10 +40,10 @@ export default function PromptCard({
   };
 
   const handlePromptRoute = () => {
-    // router.push({
-    //   pathname: `/prompt/${id}`,
-    //   query: { data: JSON.stringify(data) },
-    // });
+    router.push({
+      pathname: `/prompt/${id}`,
+      query: { data: JSON.stringify(data) },
+    });
   };
 
   const [likes, setLikes] = useState([]);
@@ -59,8 +59,8 @@ export default function PromptCard({
   return (
     <div
       className="w-[500px] min-h-[80px] p-4 rounded-md bg-gray-100 my-1 flex-shrink-0"
-      onClick={handlePromptRoute}
     >
+      <div onClick={handlePromptRoute}>
       <div className="flex gap-2">
         <img
           src={user_icon}
@@ -73,13 +73,16 @@ export default function PromptCard({
         <div className="text-gray-500">{content}</div>
       </div>
 
-      <div className="flex w-full justify-between items-center">
+      {/* <div className="flex w-full justify-between items-center">
         <div className="text-gray-500 flex gap-1 text-[14px]">
           <div>Posted </div>
 
           <div>16/04/2023</div>
         </div>
-        <div className="flex" onClick={handlePromptLike}>
+
+      </div> */}
+      </div>
+      <div className="flex justify-end" onClick={handlePromptLike}>
           <svg
             width={26}
             height={26}
@@ -95,7 +98,6 @@ export default function PromptCard({
             <div key={index}></div>
           ))}
         </div>
-      </div>
     </div>
   );
 }

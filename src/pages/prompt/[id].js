@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import addComment from "../../../utils/comment/addComment";
 import { useEffect, useState } from "react";
 import getComments from "../../../utils/comment/getComments";
+import PromptCard from "@/components/prompt/PromptCard";
 
 export default function Prompt() {
   const router = useRouter();
@@ -58,57 +59,8 @@ export default function Prompt() {
   return (
     <div className="flex flex-col mt-3 items-center">
       <div className="mr-auto mt-6">Prompt</div>
-      <div className="border-[1px] border-gray-300 p-2 w-[500px] min-h-[200px] rounded-sm">
-        <div className="flex gap-2">
-          <img
-            src={parsedData.user_icon}
-            className="w-12 h-12 rounded-full border-indigo-400 border-[1px] p-1"
-          />
-          <div className="font-semibold text-gray-500 text-[20px]">
-            {parsedData.user}
-          </div>
-        </div>
-        <div className="ml-14 mb-6 mt-[-17px]">
-          <div className="font-semibold text-gray-500 text-[16px]">
-            {parsedData.title}
-          </div>
-          <div className="text-gray-500 text-[16px]">{parsedData.content}</div>
-        </div>
-        <div className="flex w-full justify-between items-center">
-          <div className="text-gray-500 flex gap-1 text-[14px]">
-            <div>Posted </div>
+      <PromptCard user={parsedData.user} user_icon={parsedData.user_icon} title={parsedData.title} content={parsedData.content} post_likes={parsedData.post_likes} id={parsedData.id}/>
 
-            <div>16/04/2023</div>
-          </div>
-          <div className="flex">
-            <svg
-              width={26}
-              height={26}
-              viewBox="0 0 24 24"
-              className="hover:fill-indigo-400 trans-smooth fill-gray-500"
-            >
-              <path d="m11.293 5.547.707.708.707-.707a5 5 0 1 1 7.07 7.071l-7.07 7.071a1 1 0 0 1-1.414 0l-7.071-7.07a5 5 0 1 1 7.07-7.072Z" />
-            </svg>
-
-            <div className="text-gray-500">{parsedData.post_likes}</div>
-          </div>
-        </div>
-      </div>
-
-      <div className="my-6">
-        <div className="text-gray-500 text-[16px]">Give feedback!</div>
-        <textarea
-          placeholder="Comment..."
-          className="bg-white text-gray-500 border-[1px]  border-gray-300 p-2 w-[500px] resize-none focus:outline-none h-[130px]"
-          onChange={(e) => setUserComment(e.target.value)}
-        ></textarea>
-        <div
-          className="p-2 w-[60px] bg-indigo-300 flex justify-center items-center rounded-sm text-white ml-auto select-none hover:bg-indigo-400 hover:cursor-pointer transition-smooth"
-          onClick={handleAddComment}
-        >
-          Add
-        </div>
-      </div>
       <div className="mr-auto mt-6">Comments</div>
       <div className="overflow-auto  mb-3 w-[500px] flex items-center flex-col overflow-x-hidden">
         {Array.isArray(comments) && comments.length > 0 ? (
